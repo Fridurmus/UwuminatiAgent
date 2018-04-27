@@ -1,0 +1,11 @@
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\bin\Debug\netcoreapp2.0\DiscordBotTest.deps.json
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\bin\Debug\netcoreapp2.0\DiscordBotTest.runtimeconfig.json
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\bin\Debug\netcoreapp2.0\DiscordBotTest.runtimeconfig.dev.json
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\bin\Debug\netcoreapp2.0\DiscordBotTest.dll
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\bin\Debug\netcoreapp2.0\DiscordBotTest.pdb
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.csprojResolveAssemblyReference.cache
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.csproj.CoreCompileInputs.cache
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.AssemblyInfoInputs.cache
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.AssemblyInfo.cs
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.dll
+C:\Users\DirBo\source\repos\DiscordBotTest\DiscordBotTest\obj\Debug\netcoreapp2.0\DiscordBotTest.pdb
