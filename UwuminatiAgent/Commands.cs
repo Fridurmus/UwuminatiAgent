@@ -30,6 +30,12 @@ namespace UwuminatiAgent
         // yandFile is used for Adam's Yanderes only. 
         string yandFile = "Adam.txt";
 
+        // smugFile is used for Adam's Smugs only.
+        string smugFile = "SmugGirls.txt";
+
+        // aheFile is used for Adam's Ahegaos only.
+        string aheFile = "Ahegao.txt";
+
         // reactFile is used for Reactions only.
         string reactFile = "Reactions.txt";
 
@@ -44,6 +50,9 @@ namespace UwuminatiAgent
 
         // Init our pseudo-random number generator on the bot's launch.
         Random PRNG = new Random();
+
+        // Just going to go ahead and store this here.
+        string randomImgur = "https://imgur.com/random";
 
         // All 140 champions in League of Legends as of 4/26/2018.
         String[] LeagueChamps = new String[] {"Aatrox","Ahri","Akali","Alistar","Amumu","Anivia","Annie","Ashe","Aurelion Sol","Azir","Bard",
@@ -119,7 +128,11 @@ namespace UwuminatiAgent
                 $"'support': Support Champions only.\n\n\n" +
                 $"ADAM'S OWN CORNER\n" +
                 $"'addyandere': Adds a Yandere. This is exclusively for @uwuminati#5179 and nobody else.\n" +
-                $"'yandere': Retrieves a Yandere. This is exclusively for @uwuminati#5179 and nobody else.```");
+                $"'yandere': Retrieves a Yandere. This is exclusively for @uwuminati#5179 and nobody else.\n" +
+                $"'addsmug': Adds a Smug Girl. This is exclusively for @uwuminati#5179 and nobody else.\n" +
+                $"'smug': Retreives a Smug Girl. This is exclusively for @uwuminati#5179 and nobody else.\n" +
+                $"'addahegao': Adds an Ahegao. This is exclusively for @uwuminati#5179 and nobody else.\n" +
+                $"'ahegao': Retreives an Ahegao. This is excluseively for @uwuminati#5179 and nobody else.```");
         }
 
         // =========================================
@@ -287,6 +300,91 @@ namespace UwuminatiAgent
                 await ctx.RespondAsync($"You do not have permission to use this command.");
             }
         }
+
+        // AddSmug allows Adam to add a Smug Girl to a locally stored file, determined by taking the global bot directory (botFileDirectory)
+        // and concatenating the location of the list of Smug Girls (smugFile). These are stored as strings in plain text, as security is not an issue here.
+        [Command("addsmug")]
+        public async Task AddSmug(CommandContext ctx, string link)
+        {
+            if (ctx.User.Discriminator.ToString().Equals("5179"))
+            {
+                using (StreamWriter File = new StreamWriter(botFileDirectory + smugFile, true))
+                {
+                    string userSmug = ctx.Message.Content.Substring(9);
+                    await File.WriteLineAsync(userSmug.Trim());
+                }
+                await ctx.RespondAsync($"Added to the list, {ctx.User.Mention}");
+            }
+            else
+            {
+                await ctx.RespondAsync($"You do not have permission to use this command.");
+            }
+        }
+
+        // GetSmug allows Adam to recover a Smug Girl at random from a locally stored file, determined by taking the global bot directory (botFileDirectory)
+        // and concatenating the location of the list of Smug Girls (smugFile). The random line is found using an inefficient algorithm, as it is (in this case)
+        // impossible to avoid copying the entire file into memory to count the lines.
+        [Command("smug")]
+        public async Task GetSmug(CommandContext ctx)
+        {
+            if (ctx.User.Discriminator.ToString().Equals("5179"))
+            {
+                string smugFilePath = botFileDirectory + smugFile;
+
+                // Thankfully our file is guaranteed to be plaintext by the nature of the beast, but this is still a horrifically inefficent solution, 
+                // even if it is the only one available.
+                var smugFileArray = File.ReadAllLines(smugFilePath);
+                string adamSmug = smugFileArray[PRNG.Next(0, smugFileArray.Length)];
+                await ctx.RespondAsync($"{adamSmug}");
+            }
+            else
+            {
+                await ctx.RespondAsync($"You do not have permission to use this command.");
+            }
+        }
+
+        // AddAhegao allows Adam to add an Ahegao to a locally stored file, determined by taking the global bot directory (botFileDirectory)
+        // and concatenating the location of the list of Ahegao (aheFile). These are stored as strings in plain text, as security is not an issue here.
+        [Command("addahegao")]
+        public async Task AddAhegao(CommandContext ctx, string link)
+        {
+            if (ctx.User.Discriminator.ToString().Equals("5179"))
+            {
+                using (StreamWriter File = new StreamWriter(botFileDirectory + aheFile, true))
+                {
+                    string userAhe = ctx.Message.Content.Substring(11);
+                    await File.WriteLineAsync(userAhe.Trim());
+                }
+                await ctx.RespondAsync($"Added to the list, {ctx.User.Mention}");
+            }
+            else
+            {
+                await ctx.RespondAsync($"You do not have permission to use this command.");
+            }
+        }
+
+        // GetAhegao allows Adam to recover an Ahegao at random from a locally stored file, determined by taking the global bot directory (botFileDirectory)
+        // and concatenating the location of the list of Ahegaos (aheFile). The random line is found using an inefficient algorithm, as it is (in this case)
+        // impossible to avoid copying the entire file into memory to count the lines.
+        [Command("ahegao")]
+        public async Task GetAhegao(CommandContext ctx)
+        {
+            if (ctx.User.Discriminator.ToString().Equals("5179"))
+            {
+                string aheFilePath = botFileDirectory + aheFile;
+
+                // Thankfully our file is guaranteed to be plaintext by the nature of the beast, but this is still a horrifically inefficent solution, 
+                // even if it is the only one available.
+                var aheFileArray = File.ReadAllLines(aheFilePath);
+                string adamAhegao = aheFileArray[PRNG.Next(0, aheFileArray.Length)];
+                await ctx.RespondAsync($"{adamAhegao}");
+            }
+            else
+            {
+                await ctx.RespondAsync($"You do not have permission to use this command.");
+            }
+        }
+
         // AddReaction allows the user to add a Reaction to a locally stored file, determined by taking the global bot directory (botFileDirectory)
         // and concatenating the location of the list of Reactions (reactFile). These are stored as strings in plain text, as security is not an issue here.
         [Command("addreaction")]
