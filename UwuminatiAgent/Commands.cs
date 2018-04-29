@@ -9,7 +9,8 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using System.Linq;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace UwuminatiAgent
 {
@@ -105,8 +106,9 @@ namespace UwuminatiAgent
                 $"RELATIVELY BENIGN AND UTILITY COMMANDS" +
                 $"'hi': Hello.\n" +
                 $"'random min max': Generate a random number between the min and max.\n" +
+                $"'catters': Returns a cat image from random.cat!\n" +
                 $"'setalarm time|message': Set an alarm with a specified direct message to be sent to you. Time is in minutes.\n\n\n" +
-                $"MEME STUFF AND CALL-RESPONSE STUFF" +
+                $"MEME STUFF AND CALL-RESPONSE STUFF\n" +
                 $"'addreaction': Add a Reaction to the list.\n" +
                 $"'reaction': Get a reaction to the situation.\n" +
                 $"'addmfw': Add your face when to the list.\n" +
@@ -151,6 +153,29 @@ namespace UwuminatiAgent
         public async Task Random(CommandContext ctx, int min, int max)
         {
             await ctx.RespondAsync($"{ctx.User.Mention} rolls between {min} and {max} and gets {PRNG.Next(min, max)}");
+        }
+
+        // Cats!
+        [Command("catters")]
+        public async Task Catters(CommandContext ctx)
+        {
+            // Instantiate a new Webclient. Very exciting.
+            using (WebClient wc = new WebClient())
+            {
+                // Save and deserialize the JSON response.
+                var catJson = wc.DownloadString("http://aws.random.cat/meow");
+                var catResponse = JsonConvert.DeserializeObject<CatResponse>(catJson);
+
+                // Reply with the deserialized response.
+                await ctx.RespondAsync(catResponse.CatUrl);
+            }
+        }
+
+        // Object to hold the Cats. I'll have to see if there's a better way to do this.
+        public struct CatResponse
+        {
+            [JsonProperty("file")]
+            public string CatUrl { get; private set; }
         }
 
         // ===========================================
