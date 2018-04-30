@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
-using System.Windows;
 using System.IO;
 using System.Threading.Tasks;
-using DSharpPlus;
-using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using System.Net;
